@@ -1,0 +1,28 @@
+import * as readline from "readline"
+
+import { NetworksOptions } from "../enums.js"
+
+export async function askForNetwork(): Promise<NetworksOptions> {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise(resolve => {
+    rl.question(
+      `Digite a opção relacionada a rede que deseja se conectar: \n
+        1 - MAINNET
+        2 - TESTNET
+      `, input => {
+        const isInputValid = [NetworksOptions.MAINNET, NetworksOptions.TESTNET].includes(input as NetworksOptions);
+  
+        if (isInputValid) {
+          rl.close();
+          resolve(input as NetworksOptions);            
+        } else {
+          console.log('Opção inválida!');
+          resolve(askForNetwork());
+        }  
+    });
+  });
+}
