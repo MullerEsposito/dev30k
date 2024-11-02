@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npx tsc && npx ts-node dist/index.js",
     "start:watch": "tsc --watch && nodemon dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "debug": "npx tsc && npx ts-node --inspect-brk dist/index.js"
   },
   "type": "module",
   "author": "",
@@ -17,10 +17,12 @@
   "dependencies": {
     "@stellar/stellar-sdk": "^12.3.0",
     "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "json-schema": "^0.4.0",
     "urijs": "^1.19.11"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node": "^22.8.6",
     "@types/urijs": "^1.19.25",
     "ts-node": "^10.9.2",
