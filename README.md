@@ -11,7 +11,7 @@ To run this project, you will need to add the following environment variables to
 `SECRET_KEY`: It's the private key of your Stellar wallet.
 
 
-## Run Locally
+## ⚙️ Run Locally
 
 Clone the project
 
