@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
     "start": "npx tsc && npx ts-node dist/index.js",
     "start:watch": "tsc --watch && nodemon dist/index.js",
     "debug": "npx tsc && npx ts-node --inspect-brk dist/index.js"
