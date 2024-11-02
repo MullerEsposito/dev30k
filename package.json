@@ -13,7 +13,7 @@
   "license": "ISC",
   "description": "",
   "engines": {
-    "node": "v22.x"
+    "node": "20.x"
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^12.3.0",
