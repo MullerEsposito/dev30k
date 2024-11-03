@@ -19,7 +19,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['src/controllers/**/*.ts'], // Caminho para arquivos com anotações do Swagger
+  apis: ['src/controllers/**/*.ts'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

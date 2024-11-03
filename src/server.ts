@@ -8,7 +8,7 @@ import { verifyDataTransactionRoute } from './controllers/verifyDataTransactionC
 const app = express();
 app.use(bodyParser.json());
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs);
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/verify', verifyDataTransactionRoute);
 
 const PORT = 3000;
