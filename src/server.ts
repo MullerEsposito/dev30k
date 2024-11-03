@@ -7,10 +7,8 @@ import { verifyDataTransactionRoute } from './controllers/verifyDataTransactionC
 
 const app = express();
 app.use(bodyParser.json());
-const SWAGGER_CSS =
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs, { customCss: SWAGGER_CSS }));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs);
 app.use('/verify', verifyDataTransactionRoute);
 
 const PORT = 3000;
