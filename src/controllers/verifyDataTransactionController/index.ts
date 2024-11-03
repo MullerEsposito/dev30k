@@ -4,7 +4,7 @@ import { NetworksOptions } from '../../utils/enums.js';
 import { createServerService } from '../../services/createServerService.js';
 import { verifyDataTransactionService } from '../../services/verifyDataTransactionService.js';
 
-export const verifyDataTransactionRoute = express.Router();
+export const verifyDataTransactionController = express.Router();
 
 export const networkMap = {
     SOROBAN_MAINNET: NetworksOptions.SOROBAN_MAINNET,
@@ -19,7 +19,7 @@ interface IVerifyRequestParams {
     network: NetworksOptions;
 }
 
-verifyDataTransactionRoute.get('/', async (req: Request<{}, {}, {}, IVerifyRequestParams>, res): Promise<void> => {
+verifyDataTransactionController.get('/', async (req: Request<{}, {}, {}, IVerifyRequestParams>, res): Promise<void> => {
     const { transactionId, sourceMessage, network } = req.query;
 
     const missingFields = [];

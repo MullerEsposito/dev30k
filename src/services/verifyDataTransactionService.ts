@@ -14,11 +14,11 @@ export async function verifyDataTransactionService({ transactionId, server, sour
   } else if (server instanceof StellarSdk.Horizon.Server) {
     response = await getMessageToVerifyOnHorizon({ transactionId, server });
   }
-  const { messageToVerify, keypair } = response;
+  const { messageSignedToVerify, keypair } = response;
 
   const sourceMessageInBase64 = Buffer.from(btoa(sourceMessage));
   
-  if (keypair.verify(sourceMessageInBase64, messageToVerify)) {
+  if (keypair.verify(sourceMessageInBase64, messageSignedToVerify)) {
     return true; 
   } else {
     return false;    
@@ -30,11 +30,11 @@ interface IGetMessageToVerifyOnHorizonProps {
   server: StellarSdk.Horizon.Server; 
 }
 interface IGetMessageToVerifyOnHorizonResponse {
-  messageToVerify: Buffer;
+  messageSignedToVerify: Buffer;
   keypair: StellarSdk.Keypair;
 }
 async function getMessageToVerifyOnHorizon({ transactionId, server }: IGetMessageToVerifyOnHorizonProps): Promise<IGetMessageToVerifyOnHorizonResponse> {
-  let messageToVerify: Buffer;
+  let messageSignedToVerify: Buffer;
   
   const transaction = await server.transactions().transaction(transactionId).call();
 
@@ -42,13 +42,13 @@ async function getMessageToVerifyOnHorizon({ transactionId, server }: IGetMessag
 
   operations.records.forEach(operation => {
     if (operation.type === "manage_data") {
-      messageToVerify = Buffer.from(operation.value as unknown as string, 'base64');
+      messageSignedToVerify = Buffer.from(operation.value as unknown as string, 'base64');
     }
   });
 
   const keypair = StellarSdk.Keypair.fromPublicKey(transaction.source_account);
 
-  return { messageToVerify, keypair };
+  return { messageSignedToVerify, keypair };
 }
 
 interface IGetMessageToVerifyOnSorobanProps {
@@ -56,11 +56,11 @@ interface IGetMessageToVerifyOnSorobanProps {
   server: StellarSdk.rpc.Server;
 }
 interface IGetMessageToVerifyOnSorobanResponse {
-  messageToVerify: Buffer;
+  messageSignedToVerify: Buffer;
   keypair: StellarSdk.Keypair;
 }
 async function getMessageToVerifyOnSoroban({ transactionId, server }: IGetMessageToVerifyOnSorobanProps): Promise<IGetMessageToVerifyOnSorobanResponse  > {
-  let messageToVerify: Buffer;
+  let messageSignedToVerify: Buffer;
   
   const transaction = await server.getTransaction(transactionId);
   
@@ -73,14 +73,14 @@ async function getMessageToVerifyOnSoroban({ transactionId, server }: IGetMessag
   transactionXDR.v1().tx().operations().forEach(operation => {
     if (operation.body().switch().name == "manageData") {
       const value  = operation.body().value() as StellarSdk.xdr.ManageDataOp;
-      messageToVerify = value.dataValue();
+      messageSignedToVerify = value.dataValue();
     }
   })
 
   const publicKey = StellarSdk.StrKey.encodeEd25519PublicKey(transactionXDR.v1().tx().sourceAccount().ed25519());
   const keypair = StellarSdk.Keypair.fromPublicKey(publicKey);
 
-  return { messageToVerify, keypair };
+  return { messageSignedToVerify, keypair };
 }
 
 
