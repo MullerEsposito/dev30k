@@ -21,7 +21,7 @@
     "express": "^4.21.1",
     "json-schema": "^0.4.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.2",
+    "swagger-ui-express": "^4.6.3",
     "urijs": "^1.19.11"
   },
   "devDependencies": {
