@@ -21,7 +21,6 @@ const swaggerOptions = {
   },
   apis: ['src/**/*.js', 'src/**/*.ts'],
 };
-console.log(swaggerOptions);
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
