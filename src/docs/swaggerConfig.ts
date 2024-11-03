@@ -26,6 +26,7 @@ const swaggerOptions = {
   },
   apis: [__dirname + '/../controllers/**/*.js'],
 };
+console.log(swaggerOptions);
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
