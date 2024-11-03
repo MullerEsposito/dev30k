@@ -19,26 +19,6 @@ const swaggerOptions = {
       },
     ],
   },
-  paths: {
-    "/test": {
-      get: {
-        tags: ["TAG DE TESTE"],
-        summary: "summary de teste",
-        description: "description de teste",
-        parameters: [
-          {
-            name: "teste",
-            in: "query",
-            description: "desc",
-            required: true,
-            schema: {
-              type: "string"
-            }
-          }
-        ]
-      }
-    }
-  },
   apis: ['src/**/*.js', 'src/**/*.ts'],
 };
 
