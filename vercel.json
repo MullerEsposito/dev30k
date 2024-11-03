@@ -8,11 +8,11 @@
   ],
   "routes": [
     {
-      "src": "(.*)",
+      "src":  "/api-docs",
       "dest": "src/server.ts"
     },
     {
-      "src":  "/api-docs",
+      "src": "(.*)",
       "dest": "src/server.ts"
     }
   ]
