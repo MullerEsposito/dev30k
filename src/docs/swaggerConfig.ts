@@ -19,7 +19,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['src/controllers/**/*.js', 'src/controllers/**/*.ts'],
+  apis: ['src/**/*.js', 'src/**/*.ts'],
 };
 console.log(swaggerOptions);
 
