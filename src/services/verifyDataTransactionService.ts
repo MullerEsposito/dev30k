@@ -1,5 +1,4 @@
 import * as StellarSdk from '@stellar/stellar-sdk'
-import { Api } from '@stellar/stellar-sdk/lib/rpc';
 
 interface IVerifyDataTransaction {
   transactionId: string;
@@ -36,6 +35,7 @@ interface IGetMessageToVerifyOnHorizonResponse {
 }
 async function getMessageToVerifyOnHorizon({ transactionId, server }: IGetMessageToVerifyOnHorizonProps): Promise<IGetMessageToVerifyOnHorizonResponse> {
   let messageToVerify: Buffer;
+  
   const transaction = await server.transactions().transaction(transactionId).call();
 
   const operations = await transaction.operations();
@@ -62,7 +62,11 @@ interface IGetMessageToVerifyOnSorobanResponse {
 async function getMessageToVerifyOnSoroban({ transactionId, server }: IGetMessageToVerifyOnSorobanProps): Promise<IGetMessageToVerifyOnSorobanResponse  > {
   let messageToVerify: Buffer;
   
-  const transaction = await server.getTransaction(transactionId) as Api.GetSuccessfulTransactionResponse;
+  const transaction = await server.getTransaction(transactionId);
+  
+  if (transaction.status === "FAILED") throw new Error(`The transaction failed: ${transaction}`);
+  if (transaction.status === "NOT_FOUND") throw new Error(`The transaction was not found!`);    
+  
   const envelopeXDR = transaction.envelopeXdr;
   const transactionXDR = StellarSdk.xdr.TransactionEnvelope.fromXDR(envelopeXDR.toXDR('base64'), "base64");
 
