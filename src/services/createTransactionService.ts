@@ -3,7 +3,8 @@ import * as StellarSdk from "@stellar/stellar-sdk"
 import { NetworksOptions } from "../utils/enums.js";
 
 interface ICreateTransactionProps {
-  server: StellarSdk.rpc.Server | StellarSdk.Horizon.Server;
+  createServer: (network: NetworksOptions) => StellarSdk.rpc.Server | StellarSdk.Horizon.Server;
+  network: NetworksOptions;
   keypar: StellarSdk.Keypair;
   operationName: string;
   operationValue: string | Buffer;
@@ -14,20 +15,19 @@ interface ICreateTransactionResponse {
   send: () => Promise<StellarSdk.rpc.Api.SendTransactionResponse | StellarSdk.Horizon.HorizonApi.SubmitAsyncTransactionResponse>
 }
 export async function createTransactionService({ ...props }: ICreateTransactionProps): Promise<ICreateTransactionResponse> {
-  let network: NetworksOptions;
   let account: StellarSdk.Account | StellarSdk.Horizon.AccountResponse;
 
-  if (props.server instanceof StellarSdk.rpc.Server) {
-    account = await props.server.getAccount(props.keypar.publicKey());
-    network = NetworksOptions.MAINNET;
-  } else if (props.server instanceof StellarSdk.Horizon.Server) {
-    account = await props.server.loadAccount(props.keypar.publicKey());
-    network = NetworksOptions.TESTNET;
+  const server = props.createServer(props.network);
+
+  if (server instanceof StellarSdk.rpc.Server) {
+    account = await server.getAccount(props.keypar.publicKey());
+  } else if (server instanceof StellarSdk.Horizon.Server) {
+    account = await server.loadAccount(props.keypar.publicKey());
   }
 
   const transaction = new StellarSdk.TransactionBuilder(account, {
     fee: StellarSdk.BASE_FEE,
-    networkPassphrase: network == NetworksOptions.MAINNET ? StellarSdk.Networks.PUBLIC : StellarSdk.Networks.TESTNET,
+    networkPassphrase: [NetworksOptions.HORIZON_MAINNET, NetworksOptions.SOROBAN_MAINNET].includes(props.network) ? StellarSdk.Networks.PUBLIC : StellarSdk.Networks.TESTNET,
   })
   .addOperation(StellarSdk.Operation.manageData({
     name: props.operationName,
@@ -39,7 +39,7 @@ export async function createTransactionService({ ...props }: ICreateTransactionP
 
   transaction.sign(props.keypar);
 
-  return { send: () => sendTransaction({ transaction, server: props.server })};
+  return { send: () => sendTransaction({ transaction, server })};
 }
 
 interface ISendTransactionProps {
