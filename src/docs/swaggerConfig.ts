@@ -19,7 +19,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['src/**/*.js', 'src/**/*.ts', 'src/controllers/**/*.js', 'src/controllers/**/*.ts'],
+  apis: ['./src/**/*.js', './src/**/*.ts', './src/controllers/**/*.js', './src/controllers/**/*.ts'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
