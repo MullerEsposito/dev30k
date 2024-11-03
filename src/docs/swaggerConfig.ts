@@ -1,9 +1,4 @@
 import swaggerJsDoc from 'swagger-jsdoc';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const swaggerOptions = {
   swaggerDefinition: {
@@ -24,7 +19,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: [__dirname + '/../controllers/**/*.js'],
+  apis: ['src/controllers/**/*.js', 'src/controllers/**/*.ts'],
 };
 console.log(swaggerOptions);
 
