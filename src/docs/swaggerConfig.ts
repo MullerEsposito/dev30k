@@ -1,4 +1,14 @@
 import swaggerJsDoc from 'swagger-jsdoc';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Obter o nome do arquivo
+const __filename = fileURLToPath(import.meta.url);
+
+// Obter o diretório do arquivo
+const __dirname = path.dirname(__filename);
+
+console.log('Diretório local:', __dirname);
 
 const swaggerOptions = {
   swaggerDefinition: {
