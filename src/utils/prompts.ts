@@ -11,14 +11,21 @@ export async function askForNetwork(): Promise<NetworksOptions> {
   return new Promise(resolve => {
     rl.question(
       `Digite a opção relacionada a rede que deseja se conectar: \n
-        1 - MAINNET
-        2 - TESTNET
+        1 - SOROBAN_MAINNET
+        2 - SOROBAN_TESTNET
+        3 - HORIZON_MAINNET
+        4 - HORIZON_TESTNET
       > `, input => {
-        const isInputValid = [NetworksOptions.MAINNET, NetworksOptions.TESTNET].includes(input as NetworksOptions);
+        const isInputValid = [
+          NetworksOptions.SOROBAN_MAINNET, 
+          NetworksOptions.SOROBAN_TESTNET,
+          NetworksOptions.HORIZON_MAINNET,
+          NetworksOptions.HORIZON_TESTNET,
+        ].includes(input as unknown as NetworksOptions);
   
         if (isInputValid) {
           rl.close();
-          resolve(input as NetworksOptions);            
+          resolve(input as unknown as NetworksOptions);            
         } else {
           console.log('Opção inválida!');
           resolve(askForNetwork());

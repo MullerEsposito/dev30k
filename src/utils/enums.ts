@@ -1,6 +1,6 @@
-import * as StellarSdk from "@stellar/stellar-sdk"
-
 export enum NetworksOptions {
-  MAINNET = '1',
-  TESTNET = '2',
+  SOROBAN_MAINNET,
+  SOROBAN_TESTNET,
+  HORIZON_MAINNET,
+  HORIZON_TESTNET,
 }
