@@ -1,14 +1,14 @@
 import swaggerJsDoc from 'swagger-jsdoc';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 
-// Obter o nome do arquivo
-const __filename = fileURLToPath(import.meta.url);
+// // Obter o nome do arquivo
+// const __filename = fileURLToPath(import.meta.url);
 
-// Obter o diretório do arquivo
-const __dirname = path.dirname(__filename);
+// // Obter o diretório do arquivo
+// const __dirname = path.dirname(__filename);
 
-console.log('Diretório local:', __dirname);
+// console.log('Diretório local:', __dirname);
 
 const swaggerOptions = {
   swaggerDefinition: {
@@ -31,15 +31,11 @@ const swaggerOptions = {
   },
   apis: [
     './src/**/*.js', 
-    './src/**/*.ts', 
-    './src/controllers/**/*.js', 
-    './src/controllers/**/*.ts',
-    '/var/task/src/controllers/**/*.js',
-    '/var/task/src/controllers/**/*.ts,'
+    './src/**/*.ts',
   ],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-console.log(swaggerDocs);
+// console.log(swaggerDocs['paths']['/verify']['get']['responses']['500']['content']['application/json']['schema']['properties']);
 
 export default swaggerDocs;
