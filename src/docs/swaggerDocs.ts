@@ -2,7 +2,6 @@ import swaggerJSDoc from "swagger-jsdoc";
 
 const swaggerOptions = {
   definition: {
-
     openapi: '3.0.0',
     info: {
       title: 'API de Verificação dos Dados de Transações',
@@ -20,7 +19,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['src/**/*.ts']
+  apis: ['src/**/*.ts', 'src/**/*.js']
 };
 
 export const swaggerDocs = swaggerJSDoc(swaggerOptions);
